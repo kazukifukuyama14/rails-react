@@ -176,6 +176,14 @@ export default App;
 
 Refresh the browser and check if the styles are applied.
 
+If your app will have routes that come from React, and most probably it will have, so you need to add the following code to your routes.rb file at the very bottom of it
+
+```Ruby
+get '*path', to: 'static#home', constraints: ->(req) { !req.xhr? && req.format.html? }
+```
+
+This fallback ensures that any route not explicitly defined in Rails is redirected to the StaticController#home action
+
 That's it, your React + Rails App is set upped.
 
 ## Next Steps
