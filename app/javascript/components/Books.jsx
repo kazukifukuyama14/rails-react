@@ -5,27 +5,28 @@ const Books = ({ booksData, fallbackText }) => {
   const books = booksData.data || [];
 
   return (
-    <section>
-      {books.length === 0 && <p>{fallbackText}</p>}
-      {books.length > 0 && (
-        <ul>
-          {books.map((book) => (
-            <li key={book.id}>
-              <h2>{book.attributes.title}</h2>
-
-              <h3>{book.attributes.author}</h3>
-              <p>{book.attributes.description}</p>
-              <Link
-                to={`/books/${book.id}`}
-                className="btn btn-info btn-lg mb-5"
-                role="button"
-              >
-                View Book Details
-              </Link>
-            </li>
-          ))}
-        </ul>
+    <section className="row">
+      {books.length === 0 && (
+        <div className="col-12 text-center">
+          <p className="text-muted">{fallbackText}</p>
+        </div>
       )}
+      {books.length > 0 &&
+        books.map((book) => (
+          <div key={book.id} className="col-md-4 mb-4">
+            <div className="card h-100 shadow-sm">
+              <div className="card-body d-flex flex-column">
+                <h5 className="card-title">{book.attributes.title}</h5>
+                <h6 className="card-subtitle mb-2 text-muted">
+                  {book.attributes.author}
+                </h6>
+                <Link to={`/books/${book.id}`} className="btn btn-info mt-auto">
+                  View Details
+                </Link>
+              </div>
+            </div>
+          </div>
+        ))}
     </section>
   );
 };
