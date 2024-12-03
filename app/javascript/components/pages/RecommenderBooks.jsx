@@ -6,32 +6,43 @@ const RecommenderBooks = () => {
   const [recommendedBooks, setRecommendedBooks] = useState([]);
 
   useEffect(() => {
-    const fetchBook = async () => {
+    const fetchBooks = async () => {
       const response = await fetch(`http://localhost:3000/api/v1/users/${id}`);
-
       const bookData = await response.json();
       setRecommendedBooks(bookData.data);
     };
 
-    fetchBook();
+    fetchBooks();
   }, [id]);
 
   return (
     <div className="container my-5">
-      <h2>Recommended Books</h2>
-      <ul className="list-group">
+      <h2 className="text-center mb-4">Books Recommended by This User</h2>
+      <div className="row g-4">
         {recommendedBooks.length === 0 ? (
-          <li className="list-group-item">No books recommended yet.</li>
+          <div className="col-12">
+            <div className="alert alert-warning text-center" role="alert">
+              No books recommended yet.
+            </div>
+          </div>
         ) : (
           recommendedBooks.map((book) => (
-            <li key={book.data.id} className="list-group-item">
-              <h4>{book.data.attributes.title}</h4>
-              <p>{book.data.attributes.author}</p>
-              <p>{book.data.attributes.description}</p>
-            </li>
+            <div className="col-md-4" key={book.data.id}>
+              <div className="card shadow-sm h-100">
+                <div className="card-body d-flex flex-column">
+                  <h5 className="card-title">{book.data.attributes.title}</h5>
+                  <p className="card-text text-muted">
+                    {book.data.attributes.author}
+                  </p>
+                  <p className="card-text">
+                    {book.data.attributes.description}
+                  </p>
+                </div>
+              </div>
+            </div>
           ))
         )}
-      </ul>
+      </div>
     </div>
   );
 };

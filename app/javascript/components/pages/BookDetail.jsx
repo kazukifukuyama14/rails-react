@@ -23,21 +23,32 @@ const BookDetail = () => {
 
   return (
     <div className="container my-5">
-      <h1 className="text-center mb-4">{book?.attributes.title}</h1>
-      <h4 className="text-center text-muted">{book?.attributes.author}</h4>
-      <p>{book?.attributes.description || 'No description available.'}</p>
-      <hr />
-      {recommender && (
-        <p className="text-muted">
-          Recommended by:
-          <Link
-            to={`/recommender/${recommender?.attributes.id}`}
-            className="btn btn-info btn-lg mb-5"
-            role="button"
-          >
-            {recommender?.attributes.email}
-          </Link>
-        </p>
+      {book && (
+        <div className="card shadow-sm">
+          <div className="card-header text-center bg-success text-white">
+            <h1>{book.attributes.title}</h1>
+            <h4 className="text-light">{book.attributes.author}</h4>
+          </div>
+          <div className="card-body">
+            <p className="card-text">
+              {book.attributes.description || 'No description available.'}
+            </p>
+            <hr />
+            {recommender && (
+              <div className="mt-4">
+                <p className="text-muted">
+                  <strong>Recommended by:</strong>
+                </p>
+                <Link
+                  to={`/recommender/${recommender.attributes.id}`}
+                  className="btn btn-outline-info btn-lg"
+                >
+                  {recommender.attributes.email}
+                </Link>
+              </div>
+            )}
+          </div>
+        </div>
       )}
     </div>
   );
