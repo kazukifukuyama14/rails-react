@@ -5,6 +5,7 @@ import BookDetail from './pages/BookDetail';
 import AddBook from './pages/AddBook';
 import EditBook from './pages/EditBook';
 import Home from './pages/Home';
+import RecommenderBooks from './pages/RecommenderBooks';
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
         <Route path="/books/:id" element={<BookDetail />} />
         <Route path="/books/new" element={<AddBook />} />
         <Route path="/books/:id/edit" element={<EditBook />} />
+        <Route path="/recommender/:id" element={<RecommenderBooks />} />
       </Routes>
     </Router>
   );

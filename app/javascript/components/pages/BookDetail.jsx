@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const BookDetail = () => {
   const { id } = useParams();
   const [book, setBook] = useState(null);
   const [recommender, setRecommender] = useState(null);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchBook = async () => {
@@ -30,7 +29,14 @@ const BookDetail = () => {
       <hr />
       {recommender && (
         <p className="text-muted">
-          Recommended by: {recommender?.attributes.email}
+          Recommended by:
+          <Link
+            to={`/recommender/${recommender?.attributes.id}`}
+            className="btn btn-info btn-lg mb-5"
+            role="button"
+          >
+            {recommender?.attributes.email}
+          </Link>
         </p>
       )}
     </div>
