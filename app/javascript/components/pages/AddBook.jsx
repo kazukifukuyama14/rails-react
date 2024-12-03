@@ -30,6 +30,11 @@ const AddBook = () => {
       body: JSON.stringify({ book: bookData }),
     });
 
+    if (response.status === 401) {
+      window.location.href = '/users/sign_in';
+      return;
+    }
+
     const data = await response.json();
 
     setBookData({ title: '', author: '', description: '' });
