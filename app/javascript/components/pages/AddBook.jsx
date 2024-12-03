@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
@@ -11,16 +12,18 @@ const AddBook = () => {
     description: '',
   });
 
+  const navigate = useNavigate();
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setBookData({ ...bookData, [name]: value });
   };
-  const csrfToken = document
-    .querySelector('meta[name="csrf-token"]')
-    .getAttribute('content');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const csrfToken = document
+      .querySelector('meta[name="csrf-token"]')
+      .getAttribute('content');
     const response = await fetch('http://localhost:3000/api/v1/books', {
       method: 'POST',
       headers: {
@@ -34,10 +37,10 @@ const AddBook = () => {
       window.location.href = '/users/sign_in';
       return;
     }
-
-    const data = await response.json();
+    const newBook = await response.json();
 
     setBookData({ title: '', author: '', description: '' });
+    navigate(`/books/${newBook.data.id}`);
   };
 
   return (
