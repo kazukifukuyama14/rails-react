@@ -21,6 +21,31 @@ const BookDetail = () => {
     fetchBook();
   }, [id]);
 
+  const handleDelete = async () => {
+    if (!window.confirm('Are you sure you want to delete this book?')) return;
+
+    const csrfToken = document
+      .querySelector('meta[name="csrf-token"]')
+      .getAttribute('content');
+
+    const response = await fetch(`http://localhost:3000/api/v1/books/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': csrfToken,
+      },
+    });
+
+    if (response.ok) {
+      alert('Book deleted successfully.');
+      window.location.href = '/books';
+    } else if (response.status === 401) {
+      alert('You are not authorized to delete this book.');
+    } else {
+      alert('Failed to delete the book. Please try again.');
+    }
+  };
+
   return (
     <div className="container my-5">
       {book && (
@@ -47,6 +72,18 @@ const BookDetail = () => {
                 </Link>
               </div>
             )}
+          </div>
+          <div className="card-footer bg-secondary text-center">
+            <button type="submit" className="btn btn-warning mx-2">
+              Edit Book
+            </button>
+            <button
+              type="submit"
+              className="btn btn-danger mx-2"
+              onClick={handleDelete}
+            >
+              Delete Book
+            </button>
           </div>
         </div>
       )}

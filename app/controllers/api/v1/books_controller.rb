@@ -30,7 +30,12 @@ class Api::V1::BooksController < ApplicationController
   end
 
   def destroy
-    @book.destroy
+    if current_user != @book.recommender
+      render json: { error: "You are not authorized to delete this book." }, status: :unauthorized
+    else
+      @book.destroy
+      render json: { message: "Book deleted successfully." }, status: :ok
+    end
   end
 
   private
