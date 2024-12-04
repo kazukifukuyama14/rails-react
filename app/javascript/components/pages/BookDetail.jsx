@@ -74,9 +74,9 @@ const BookDetail = () => {
             )}
           </div>
           <div className="card-footer bg-secondary text-center">
-            <button type="submit" className="btn btn-warning mx-2">
+            <Link to={`/books/${id}/edit`} className="btn btn-warning mx-2">
               Edit Book
-            </button>
+            </Link>
             <button
               type="submit"
               className="btn btn-danger mx-2"

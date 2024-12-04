@@ -22,10 +22,12 @@ class Api::V1::BooksController < ApplicationController
   end
 
   def update
-    if book.update(book_params)
+    if current_user != @book.recommender
+      render json: { error: "You are not authorized to delete this book." }, status: :unauthorized
+    elsif @book.update(book_params)
      render json: BookSerializer.new(@book).serializable_hash
     else
-      render json: book.errors, status: :unprocessable_entity
+      render json: @book.errors, status: :unprocessable_entity
     end
   end
 
