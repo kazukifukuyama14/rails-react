@@ -18,7 +18,7 @@ RUN ls -la /app/assets/builds
 
 
 # 本番ステージ
-FROM ruby:3.2
+FROM ruby:3.2.2
 
 # 必要なパッケージ
 RUN apt-get update -qq && \

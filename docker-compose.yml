@@ -1,11 +1,7 @@
-# Docker Compose ファイルのバージョン指定
-version: "3.8"
-
 services:
   app:
-    # Railsアプリケーションのサービス定義
     build:
-      context: . # カレントディレクトリにあるDockerfileからビルド
+      context: .  # カレントディレクトリにあるDockerfileからビルド
     ports:
       - "3000:3000" # ホストの3000番ポートをコンテナの3000番ポートにバインド
     volumes:
