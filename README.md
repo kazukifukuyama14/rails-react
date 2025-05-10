@@ -63,6 +63,7 @@ docker compose exec app bin/rails db:seed
 
 ---
 
+
 </br>
 
 ## 🧑‍💻 補足事項
@@ -71,4 +72,3 @@ docker compose exec app bin/rails db:seed
   - アプリケーション → 3000 番ポート
   - データベース → 5432 番ポート
 - データベース接続情報は`docker-compose.yml`内の`environment`に記載しています。
-# rails-react
