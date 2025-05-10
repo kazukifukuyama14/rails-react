@@ -1,0 +1,28 @@
+# Docker Compose ファイルのバージョン指定
+version: "3.8"
+
+services:
+  app:
+    # Railsアプリケーションのサービス定義
+    build:
+      context: . # カレントディレクトリにあるDockerfileからビルド
+    ports:
+      - "3000:3000" # ホストの3000番ポートをコンテナの3000番ポートにバインド
+    volumes:
+      - .:/app # ホストのカレントディレクトリをコンテナ内の/appにマウント
+    depends_on:
+      - db # dbサービスが起動してからappサービスを起動
+    environment:
+      - DATABASE_HOST=db # データベースのホスト名
+      - DATABASE_USERNAME=postgres # データベースのユーザー名
+      - DATABASE_PASSWORD=postgres # データベースのパスワード
+      - DATABASE_NAME=rails_react_development # データベースの名前
+
+  db:
+    image: postgres:15 # PostgreSQLバージョン
+    environment:
+      POSTGRES_USER: postgres # データベースのユーザー名
+      POSTGRES_PASSWORD: postgres # データベースのパスワード
+      POSTGRES_DB: rails_react_development # データベースの名前
+    ports:
+      - "5432:5432" # ホストの5432番ポートをコンテナの5432番ポートにバインド
